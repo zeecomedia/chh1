@@ -74,6 +74,20 @@ except Exception as e:
 
 #print("URI:", os.getenv('MONGO_URI'))
 
+import sentry_sdk
+from flask import Flask
+
+sentry_sdk.init(
+    dsn="https://1dee190f08c4c37438c3aefd02caf966@o349605.ingest.sentry.io/4506099975847936",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
+
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
 login_manager = LoginManager()
