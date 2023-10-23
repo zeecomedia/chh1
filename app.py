@@ -99,7 +99,7 @@ oauth.init_app(app)
 if os.environ.get("FLASK_ENV") == "development":
     base_url = "http://localhost:5000"
 else:
-    base_url = "https://your-heroku-app-name.herokuapp.com"
+    base_url = "https://subsapp-9504fa1fc11f.herokuapp.com/"
 
 redirect_uri = f"{base_url}/login/authorized"
 
@@ -580,4 +580,6 @@ if __name__ == "__main__":
     # Get the port number from the environment variable, or use 5000 as a fallback
     # port = int(os.environ.get("PORT", 5000))
     # Run the app on the specified port port=port
-    app.run(host="127.0.0.1:5000", debug=True)
+    # app.run(host="127.0.0.1:5000", debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
+
