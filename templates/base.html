@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='config.js') }}"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+<header class="bg-gray-800 py-4">
+    <nav class="container mx-auto flex items-center justify-between px-4">
+
+        <!-- Spacer div to push title to the center -->
+        <div></div>
+
+        <!-- Your Chart Champ title -->
+        <a class="text-white font-sans font-semibold items-center text-3xl sm:text-4xl" href="/">Chart Champ</a>
+
+        <!-- Container for buttons -->
+        <div class="flex items-center space-x-4">
+            {% if session['logged_in'] %}
+                <a href="{{ url_for('user_profile') }}" class="px-4 py-2 bg-white-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-200">Profile</a>
+                <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-white-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-200">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="px-4 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-200">Login</a>
+                <a href="{{ url_for('register') }}" class="px-4 py-2 bg-white text-gray-800 border border-gray-300 rounded-full shadow-md hover:border-gray-400 transition duration-200">Register</a>
+            {% endif %}
+        </div>
+
+
+    </nav>
+</header>
+
+</head>
+
+<body>
+
+<div class="bg-gray-200 h-16 flex justify-center items-center">
+  <a href="/" class="font-sans text-black-600 font-bold mx-4">Moving Average Crossovers</a>
+  <a href="{{ url_for('rebalancing_strategy') }}" class="font-sans text-black-600 font-bold mx-4">Rebalancing</a>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flashed-messages space-y-4">
+            {% for category, message in messages %}
+                <div class="alert relative px-4 py-3 rounded-md {{ 'bg-green-500 text-white' if category == 'success' else 'bg-red-500 text-white' if category == 'danger' else 'bg-yellow-500 text-white' }} flash-message">
+                    <span class="block sm:inline">{{ message }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-alert">
+                        <button type="button" class="text-2xl font-semibold leading-none" onclick="this.parentElement.parentElement.style.display='none';">&times;</button>
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XLPZ9TKTP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-9XLPZ9TKTP');
+    </script>
+    <script src="static/js/ma_crossovers.js"></script>
+    <script src="{{ url_for('static', filename='js/rebalancing_strategy.js') }}"></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        let flashMessages = document.querySelectorAll('.flash-message');
+        flashMessages.forEach(function(flashMessage) {
+            flashMessage.style.display = 'none';
+        });
+    }, 600); // 0.2 seconds
+});
+</script>
+
+
+
+
+    </body>
+</html>

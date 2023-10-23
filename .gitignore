@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pickle
+static/chart_data.json
+stock1_normalized.csv
+.env
+.vercel
+deploy.sh

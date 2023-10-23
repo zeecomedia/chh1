@@ -1,0 +1,30 @@
+<!-- This uses tailwinds and formats the REBALANCING STRATEGY -->
+
+<div class="mt-8 overflow-x-auto">
+    <div class="align-middle inline-block min-w-full shadow sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">Name</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">Total Return</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">CAGR</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">Max Drawdown</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">Volatility</th>
+                    <th scope="col" class="px-6 py-3 text-center text-sm font-medium text-gray-900">Sharpe Ratio</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for index, row in return_data_df.iterrows() %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-center font-medium text-gray-900">{{ index }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-gray-500">{{ '{:.0f}x'.format(row['Total Return']) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-gray-500">{{ '{:.0%}'.format(row['CAGR']) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-gray-500">{{ '{:.0%}'.format(row['Max Drawdown']) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-gray-500">{{ '{:.0%}'.format(row['Volatility']) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-gray-500">{{ '{:.2f}'.format(row['Sharpe Ratio']) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

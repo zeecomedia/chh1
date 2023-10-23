@@ -1,0 +1,104 @@
+.navbar-brand {
+  margin: 0;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.table {
+  font-size: 14px;
+}
+
+#table-container {
+  padding-left: 50px; /* Adjust the value to your desired spacing */
+}
+
+
+
+input[type="text"], input[type="number"], select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.wider {
+  width: 1200px;
+}
+
+button[type="submit"] {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+#chart-form {
+  padding-top: 3%;
+}
+
+@media (min-width: 768px) {
+  .row-cols-md-2 > * {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+#generate-chart {
+  margin-top: 18px; /* Adjust this value as needed */
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+}
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+nav a {
+  margin-right: 1rem;
+}
+
+.home-btn {
+  font-size: 1.5rem; /* Adjust the size as needed */
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav a {
+    margin-bottom: 1rem;
+  }
+}
+
+.email-address,
+.password {
+margin-left: 0.5rem;
+}
