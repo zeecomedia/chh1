@@ -74,19 +74,7 @@ except Exception as e:
 
 #print("URI:", os.getenv('MONGO_URI'))
 
-import sentry_sdk
-from flask import Flask
 
-sentry_sdk.init(
-    dsn="https://1dee190f08c4c37438c3aefd02caf966@o349605.ingest.sentry.io/4506099975847936",
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    traces_sample_rate=1.0,
-    # Set profiles_sample_rate to 1.0 to profile 100%
-    # of sampled transactions.
-    # We recommend adjusting this value in production.
-    profiles_sample_rate=1.0,
-)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -595,5 +583,17 @@ if __name__ == "__main__":
     # port = int(os.environ.get("PORT", 5000))
     # Run the app on the specified port port=port
     # app.run(host="127.0.0.1:5000", debug=True)
+    import sentry_sdk
+    from flask import Flask
+    sentry_sdk.init(
+        dsn="https://1dee190f08c4c37438c3aefd02caf966@o349605.ingest.sentry.io/4506099975847936",
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        traces_sample_rate=1.0,
+        # Set profiles_sample_rate to 1.0 to profile 100%
+        # of sampled transactions.
+        # We recommend adjusting this value in production.
+        profiles_sample_rate=1.0,
+    )
     app.run(host="https://subsapp-9504fa1fc11f.herokuapp.com/", port=5000, debug=False)
 
