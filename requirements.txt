@@ -36,5 +36,4 @@ pymongo==4.5.0
 tabulate==0.8.9
 virtualenv==20.19.0
 virtualenv-clone==0.5.7
-git+https://github.com/maxcountryman/flask-login.git#egg=Werkzeug>=2.3.2
 yfinance==0.2.31b2
