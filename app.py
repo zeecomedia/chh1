@@ -595,5 +595,5 @@ if __name__ == "__main__":
         # We recommend adjusting this value in production.
         profiles_sample_rate=1.0,
     )
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    app.run(host="127.0.0.1", port=5000, debug=True)
 
