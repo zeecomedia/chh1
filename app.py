@@ -431,7 +431,27 @@ def rebalancing_strategy():
 
 @app.route("/generate_chart", methods=["POST"])
 def generate_chart():
-    user_type = session['user_type_data']  
+    user_type = "FREE"
+    if session:
+        user_email = session['user']
+        try:
+            # Retrieve the customer's subscriptions
+            customers = stripe.Customer.list(email=user_email).auto_paging_iter()
+            for customer in customers:
+                subscriptions = stripe.Subscription.list(customer=customer.id).auto_paging_iter()
+                for subscription in subscriptions:
+                    # If the user has a subscription, cancel it
+                    if subscription.status == 'active':
+                        # stripe.Subscription.delete(subscription.id)
+                        user_type = "PREMIUM"
+                        session['user_type_data'] = user_type
+                        break
+        except stripe.error.InvalidRequestError as e:
+            user_type = "FREE"
+            session['user_type_data'] = user_type
+    else:
+        user_type = "FREE"
+        
     try:
         # Get user input
         symbol = request.form.get("symbol", default_symbol)
