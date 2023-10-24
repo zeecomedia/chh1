@@ -193,7 +193,7 @@ def user_profile():
 @app.route("/")
 def index():
     user_type = "FREE"
-    if session['logged_in']:
+    if session:
         user_email = session['user']
         try:
             # Retrieve the customer's subscriptions
