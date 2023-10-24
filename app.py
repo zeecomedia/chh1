@@ -79,8 +79,8 @@ except Exception as e:
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
 login_manager = LoginManager()
-login_manager.init_app(app)
 login_manager.login_view = "login"
+login_manager.init_app(app)
 
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 app.config["GOOGLE_CLIENT_ID"] = os.getenv('GOOGLE_CLIENT_ID')
@@ -121,43 +121,7 @@ google = oauth.register(
 )
 
 
-@app.route("/")
-def index():
-    session['user_type_data'] = USER_TYPE 
-    # print(check_user_type)
-    if session['user_type_data'] == 'FREE':
-        # Get the start and end dates from the session
-        start_date = session.get("start_date", default_start_date)
-        end_date = session.get("end_date", default_end_date)
 
-        if isinstance(start_date, str):
-           start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-        if isinstance(end_date, str):
-            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-        
-        # duration_in_years = end_date.year - start_date.year
-        # Calculate the date difference in years
-
-        date_diff = relativedelta(end_date, start_date).years
-    
-        # If the date difference is more than 2 years, limit it to 2 years
-        if date_diff > 2:
-            end_date = start_date + relativedelta(years=2)
-            flash('As free user, 2 year is the maximum year you can select', 'danger')
-           
-     
-    return render_template(
-            "index.html",
-            symbol=session.get("symbol", default_symbol),
-            short=session.get("short", default_short),
-            long=session.get("long", default_long),
-            ind=session.get("ind", default_ind),
-            start_date=session.get("start_date", default_start_date),
-            end_date=session.get("end_date", default_end_date),
-            transaction_costs=session.get("transaction_costs", default_transaction_costs),
-            img_str="",
-            table_str=""
-    )
 
 
 #Login forms below
@@ -224,6 +188,42 @@ def user_profile():
 
     return render_template('profile.html', user_email=user_email, user_type=user_type)
     # return data
+
+
+@app.route("/")
+def index():
+    user_type = 'FREE'
+    user_email = session['user']
+    try:
+        # Retrieve the customer's subscriptions
+        customers = stripe.Customer.list(email=user_email).auto_paging_iter()
+        for customer in customers:
+            subscriptions = stripe.Subscription.list(customer=customer.id).auto_paging_iter()
+            for subscription in subscriptions:
+                # If the user has a subscription, cancel it
+                if subscription.status == 'active':
+                    # stripe.Subscription.delete(subscription.id)
+                    user_type = "PREMIUM"
+                    session['user_type_data'] = user_type
+                    break
+    except stripe.error.InvalidRequestError as e:
+        user_type = "FREE"
+        session['user_type_data'] = user_type
+           
+     
+    return render_template(
+            "index.html",
+            symbol=session.get("symbol", default_symbol),
+            short=session.get("short", default_short),
+            long=session.get("long", default_long),
+            ind=session.get("ind", default_ind),
+            start_date=session.get("start_date", default_start_date),
+            end_date=session.get("end_date", default_end_date),
+            transaction_costs=session.get("transaction_costs", default_transaction_costs),
+            img_str="",
+            table_str="",
+            user_type=user_type
+)
 
 
 
@@ -444,6 +444,7 @@ def generate_chart():
         start_date_obj = dt.datetime.strptime(start_date, "%Y-%m-%d")
         end_date_obj = dt.datetime.strptime(end_date, "%Y-%m-%d")
         difference = (start_date_obj - end_date_obj).days
+        difference_year = (end_date_obj.year - start_date_obj.year)
 
         ticker_signal = symbol
         ticker_strat = symbol
@@ -518,13 +519,22 @@ def generate_chart():
         session["transaction_costs"] = transaction_costs
 
         # print('Chart data in app.py is ',chart_data)
+        # print('Chart data in app.py is ',chart_data)
 
+        user_type = session['user_type_data']  
         # Combine the json_chart_data and table_html into a single dictionary
-        response_data = {
-            "chart_data": chart_data.to_json(orient="split", index=False),
-            "table_html": table_html,
-        }
-
+        if user_type == "FREE" and difference_year > 2:
+           
+           response_data = {
+               "chart_data": "UPGRADE TO PREMIUM PLAN",
+           "table_html": "UPGRADE TO PREMIUM PLAN",
+           }
+        else:
+        # Combine the json_chart_data and table_html into a single dictionary
+            response_data = {
+                "chart_data": chart_data.to_json(orient="split", index=False),
+                "table_html": table_html,
+            }
         # Return the combined data as a JSON response
         return jsonify(response_data)
 
@@ -583,17 +593,5 @@ if __name__ == "__main__":
     # port = int(os.environ.get("PORT", 5000))
     # Run the app on the specified port port=port
     # app.run(host="127.0.0.1:5000", debug=True)
-    import sentry_sdk
-    from flask import Flask
-    sentry_sdk.init(
-        dsn="https://1dee190f08c4c37438c3aefd02caf966@o349605.ingest.sentry.io/4506099975847936",
-        # Set traces_sample_rate to 1.0 to capture 100%
-        # of transactions for performance monitoring.
-        traces_sample_rate=1.0,
-        # Set profiles_sample_rate to 1.0 to profile 100%
-        # of sampled transactions.
-        # We recommend adjusting this value in production.
-        profiles_sample_rate=1.0,
-    )
     app.run(host="127.0.0.1", port=5000, debug=True)
 

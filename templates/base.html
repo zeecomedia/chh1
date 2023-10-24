@@ -25,7 +25,7 @@
         <!-- Container for buttons -->
         <div class="flex items-center space-x-4">
             {% if session['logged_in'] %}
-                <a href="{{ url_for('user_profile') }}" class="px-4 py-2 bg-white-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-200">Profile</a>
+                <a href="{{ url_for('user_profile') }}" class="px-4 py-2 bg-white-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-200">Manage subscription</a>
                 <a href="{{ url_for('logout') }}" class="px-4 py-2 bg-white-500 text-white rounded-full shadow-md hover:bg-red-600 transition duration-200">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}" class="px-4 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-200">Login</a>
