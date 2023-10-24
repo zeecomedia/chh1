@@ -3,11 +3,11 @@
 {% block content %}
 
    <div class="bg-gray-200 h-16 flex justify-center items-center">
-            {% if user_type == "FREE" %}
+            {% if user_type == "FREE" and session['logged_in'] %}
                 <b>Upgrade your subscription to generate more than 2 years chart</h3></b>
             {% endif %} 
     </div>
-    
+
     <div class="container mx-auto mt-4">
         <div class="flex flex-wrap">
             <div class="w-full md:w-1/3" id="generate-chart">
