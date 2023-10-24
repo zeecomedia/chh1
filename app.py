@@ -235,7 +235,7 @@ def get_publishable_key():
 
 @app.route('/create-checkout-session/', methods=['GET'])
 def create_checkout_session():
-    domain_url = 'http://localhost:5000/'  # Flask runs on port 5000 by default
+    domain_url = 'https://chartchamp-dabcf246b665.herokuapp.com'  # Flask runs on port 5000 by default
     try:
         checkout_session = stripe.checkout.Session.create(
             client_reference_id=request.args.get('user_id'),  # Get user_id from the query string
