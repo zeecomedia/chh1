@@ -88,3 +88,4 @@ zope.hookable==6.0
 zope.interface==6.1
 zope.lifecycleevent==5.0
 zope.proxy==5.1
+git+https://github.com/maxcountryman/flask-login.git
