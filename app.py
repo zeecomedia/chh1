@@ -431,7 +431,7 @@ def rebalancing_strategy():
 
 @app.route("/generate_chart", methods=["POST"])
 def generate_chart():
-
+    user_type = session['user_type_data']  
     try:
         # Get user input
         symbol = request.form.get("symbol", default_symbol)
@@ -524,7 +524,6 @@ def generate_chart():
         # print('Chart data in app.py is ',chart_data)
         # print('Chart data in app.py is ',chart_data)
 
-        user_type = session['user_type_data']  
         # Combine the json_chart_data and table_html into a single dictionary
         if user_type == "FREE" and difference_year > 2:
            
