@@ -248,7 +248,7 @@ def create_checkout_session():
             mode='subscription',
             line_items=[
                 {
-                    'price': "price_1O4KXNILsyIIwJfD0vieEEjV",
+                    'price': "price_1O3YDrG6XQCvcT65EOThrFSs",
                     'quantity': 1,
                 }
             ]
