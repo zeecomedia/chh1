@@ -101,7 +101,7 @@ oauth.init_app(app)
 if os.environ.get("FLASK_ENV") == "development":
     base_url = "http://localhost:5000"
 else:
-    base_url = "https://chartchamp-dabcf246b665.herokuapp.com"
+    base_url = "https://chartchamp-owgv.onrender.com"
 
 redirect_uri = f"{base_url}/login/authorized"
 
