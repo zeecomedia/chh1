@@ -232,13 +232,13 @@ def index():
 
 @app.route("/config")
 def get_publishable_key():
-    stripe_config = {"publicKey": "pk_test_hqGtAv97ws7TdC8O367fft3W"}
+    stripe_config = {"publicKey": "pk_test_aEbtllA9T4eqGYhu7scnN2FV"}
     return jsonify(stripe_config)
 
 
 @app.route('/create-checkout-session/', methods=['GET'])
 def create_checkout_session():
-    domain_url = 'https://chartchamp-dabcf246b665.herokuapp.com'  # Flask runs on port 5000 by default
+    domain_url = 'https://chartchamp-owgv.onrender.com'  # Flask runs on port 5000 by default
     try:
         checkout_session = stripe.checkout.Session.create(
             client_reference_id=request.args.get('user_id'),  # Get user_id from the query string
@@ -266,7 +266,7 @@ def success():
 # app.py
 @app.route('/stripe-webhook', methods=['POST'])
 def stripe_webhook():
-    endpoint_secret = "whsec_36e1cc4f123b13a630b01c0bdce14516085f8e0174efdfc3a6e7f8b87a5750a5"
+    endpoint_secret = "whsec_5krJxr9zIquf8kCgrFybpH6Fhm54I6Eg"
     payload = request.data
     sig_header = request.headers.get('Stripe-Signature')
     event = None
