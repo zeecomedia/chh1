@@ -7,3 +7,4 @@ stock1_normalized.csv
 .env
 .vercel
 deploy.sh
+backenv/
