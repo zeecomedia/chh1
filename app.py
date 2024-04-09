@@ -87,13 +87,13 @@ app.config["GOOGLE_CLIENT_ID"] = os.getenv('GOOGLE_CLIENT_ID')
 app.config["GOOGLE_SECRET_KEY"] = os.getenv('GOOGLE_SECRET_KEY')
 
 #stripe details
-app.config["STRIPE_PUBLISHABLE_KEY"] = "pk_test_hqGtAv97ws7TdC8O367fft3W"
-app.config["STRIPE_SECRET_KEY"] = "sk_test_m5sw5JWx3z9Ob54AAnRQv1Vn"
-app.config["STRIPE_PRICE_ID"] ="price_1O4KXNILsyIIwJfD0vieEEjV"
-app.config["STRIPE_ENDPOINT_SECRET"] = "whsec_36e1cc4f123b13a630b01c0bdce14516085f8e0174efdfc3a6e7f8b87a5750a5"
+app.config["STRIPE_PUBLISHABLE_KEY"] = "pk_test_aEbtllA9T4eqGYhu7scnN2FV"
+app.config["STRIPE_SECRET_KEY"] = "sk_test_8uo8l9Z3dZ3TxM01EQsECWPs0078jQZHVn"
+app.config["STRIPE_PRICE_ID"] ="price_1O3YDrG6XQCvcT65EOThrFSs"
+app.config["STRIPE_ENDPOINT_SECRET"] = "whsec_91b3851f86ea740d172c91590774128b3be1ebf73719d46f2f87d40869f219b7"
 
 
-stripe.api_key = "sk_test_m5sw5JWx3z9Ob54AAnRQv1Vn"
+stripe.api_key = "sk_test_8uo8l9Z3dZ3TxM01EQsECWPs0078jQZHVn"
 
 oauth = OAuth()
 oauth.init_app(app)
