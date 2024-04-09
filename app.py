@@ -90,7 +90,7 @@ app.config["GOOGLE_SECRET_KEY"] = os.getenv('GOOGLE_SECRET_KEY')
 app.config["STRIPE_PUBLISHABLE_KEY"] = "pk_test_aEbtllA9T4eqGYhu7scnN2FV"
 app.config["STRIPE_SECRET_KEY"] = "sk_test_8uo8l9Z3dZ3TxM01EQsECWPs0078jQZHVn"
 app.config["STRIPE_PRICE_ID"] ="price_1O3YDrG6XQCvcT65EOThrFSs"
-app.config["STRIPE_ENDPOINT_SECRET"] = "we_1P3eLIG6XQCvcT65QpD8FO8d"
+app.config["STRIPE_ENDPOINT_SECRET"] = "whsec_5krJxr9zIquf8kCgrFybpH6Fhm54I6Eg"
 
 
 stripe.api_key = "sk_test_8uo8l9Z3dZ3TxM01EQsECWPs0078jQZHVn"
