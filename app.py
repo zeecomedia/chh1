@@ -193,8 +193,8 @@ def user_profile():
 @app.route("/")
 def index():
     user_type = "FREE"
-    if session:
-        user_email = session['user']
+    user_email = session.get('user')
+    if user_email:
         try:
             # Retrieve the customer's subscriptions
             customers = stripe.Customer.list(email=user_email).auto_paging_iter()
